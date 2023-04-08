@@ -8,6 +8,21 @@ var Parse = {
 
   create: function(message, successCB, errorCB = null) {
     // TODO: send a request to the Parse API to save the message
+    //post
+    $.ajax({
+      url: Parse.server,
+      type: 'POST',
+      data: { order: '-createdAt' },
+      contentType: 'application/json',
+      success: function () {
+        Messages.update();
+        // empty the chat container
+        MessagesView.render();
+      },
+      error: errorCB || function(error) {
+        console.error('chatterbox: Failed to fetch messages', error);
+      }
+    });
   },
 
   readAll: function(successCB, errorCB = null) {

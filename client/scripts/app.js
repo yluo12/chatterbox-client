@@ -27,7 +27,18 @@ var App = {
     Parse.readAll((data) => {
       // examine the response from the server request:
       console.log(data);
-
+      // console.log(data[0].text);
+      Messages.update(data);
+      // App.data = data.map(function (obj) {
+      //   delete obj.message_id;
+      //   delete obj.github_handle;
+      //   delete obj.created_at;
+      //   delete obj.updated_at;
+      //   delete obj.campus;
+      //
+      //   return obj;
+      // });
+      // console.log(App.data);
       // TODO: Use the data to update Messages and Rooms
       // and re-render the corresponding views.
     });
