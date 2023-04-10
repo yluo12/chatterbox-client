@@ -8,20 +8,22 @@ var MessagesView = {
   initialize: function() {
     // TODO: Perform any work which needs to be done
     // when this view loads.
+    MessagesView.$chats.on('click', '.username', MessagesView.handleClick);
   },
 
   render: function(data) {
     // TODO: Render _all_ the messages.
+    MessagesView.$chats.empty();
     for (var id in data) {
-      MessagesView.renderMessage(data[id]);
+      if (data[id].roomname === Rooms.selected) {
+        var currentChat = Messages.getMessagesObj(data[id]);
+        MessagesView.renderMessage(currentChat);
+      }
+
     }
   },
 
   renderMessage: function(message) {
-    // console.log(message);
-    // var template = MessageView.render;
-    // var newMessage = template({message});
-    // prepend to chats container
     var $newMessage = $(MessageView.render(message));
     MessagesView.$chats.prepend($newMessage);
   },
@@ -29,6 +31,9 @@ var MessagesView = {
   handleClick: function(event) {
     // TODO: handle a user clicking on a message
     // (this should add the sender to the user's friend list).
+    var username = $(event.target).data('username');
+
+    Friends.toggleStatus(username);
   }
 
 

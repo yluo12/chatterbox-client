@@ -20,7 +20,14 @@ var FormView = {
     // Make this function actually send a message to the Parse API.
 
     // username, message, roomnumber
-    //
+    var message = {
+      username: App.username,
+      text: FormView.$form.find('#message').val()
+    };
+
+    Parse.create(message, function (data) {
+      Messages.update(data);
+    });
 
     console.log('click!');
   },
